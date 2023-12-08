@@ -1,3 +1,5 @@
+const timeStart = new Date();
+
 const fs = require('fs');
 const fileContent = fs.readFileSync(process.argv[2], 'utf-8').trim().split(/\n\n/);
 
@@ -12,22 +14,20 @@ const nodes = {};
 left.forEach(node => {
     const [a, left] = node.split(" = ");
     const [b, c] = left.split(", ");
-    nodes[a] = [b.split("(")[1], c.split(")")[0]];
+    nodes[a] = [b.replace("(", ""), c.replace(")", "")];
 });
 
 let steps = 0;
 let index = 0;
-let isFound = false;
 let key = "AAA";
-do {
-    console.log(`(${key}, ${key === "ZZZ"}, ${steps}, ${index}, ${directions.length}, ${directions[index]}): [${nodes[key]}], ${nodes[key][directions[index]]}`)
+while (key !== "ZZZ") {
     key = nodes[key][directions[index]];
-    if (key === "ZZZ") isFound = true;
 
     index++;
     if (index > directions.length - 1) index = 0;
 
     steps++;
-} while (!isFound)
+}
 
 console.log("Ans1:", steps)
+console.log(`Time taken: ${new Date() - timeStart} ms`);
