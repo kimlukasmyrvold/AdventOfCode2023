@@ -18,13 +18,13 @@ fileContent.forEach(line => {
             newArrays.push(newArray)
             array = newArray;
         }
-        return inputArray[inputArray.length - 1] + addNext(newArrays);
+        return inputArray[0] - addNext(newArrays);
     }
 
     function addNext(arr) {
         const newArr = arr;
         for (let i = arr.length - 1; i >= 0; i--) {
-            if (i !== arr.length - 1) newArr[i].push(newArr[i][newArr[i].length - 1] + newArr[i + 1][newArr[i + 1].length - 1])
+            if (i !== arr.length - 1) newArr[i].push(newArr[i][0] - newArr[i + 1][newArr[i + 1].length - 1])
         }
         return newArr[0].pop();
     }
