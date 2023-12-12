@@ -4,9 +4,18 @@ const fs = require('fs');
 const lines = fs.readFileSync(process.argv[2], 'utf-8').trim().split(/\n/).map((line) => line.split(""));
 
 const transpose = (input) => input[0].map((_, index) => input.map(row => row[index]));
-const addDots = (input) => input.flatMap(axis => {
-    return axis.every(x => x === ".") ? [axis, Array(axis.length).fill('.')] : [axis];
-});
+
+function addDots(count, input) {
+    return input.flatMap(axis => {
+        if (axis.every(x => x === ".")) {
+            const dots = Array(count).fill(Array(axis.length).fill('.'));
+            return (count <= 2) ? [axis, ...dots] : [...dots];
+        }
+
+        return [axis];
+    });
+}
+
 const getDistance = (pair1, pair2) => {
     const galax1 = galaxies[pair1];
     const galax2 = galaxies[pair2];
@@ -19,7 +28,8 @@ for (let i = 0; i < lines.length; i++)
     for (let j = 0; j < lines[i].length; j++)
         if (lines[i][j] === "#") lines[i][j] = ++count;
 
-const newLines = transpose(addDots(transpose(addDots(lines))));
+const dotsToAdd = parseInt(process.argv[3]) || 1;
+const newLines = transpose(addDots(dotsToAdd, transpose(addDots(dotsToAdd, lines))));
 
 // Getting indexes for every number
 const galaxies = {};
