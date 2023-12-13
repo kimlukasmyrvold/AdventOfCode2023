@@ -29,7 +29,7 @@ function getStrengths(cards) {
     }
 }
 
-function j(a) { return JSON.stringify(a); }
+const j = (a) => JSON.stringify(a);
 
 
 function getSimilar(arr) {
