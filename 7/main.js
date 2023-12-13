@@ -8,12 +8,6 @@ for (const line of lines) {
 }
 
 function getStrengths(cards) {
-    cards = cards.replace(/A/g, String.fromCharCode('9'.charCodeAt(0) + 5));
-    cards = cards.replace(/K/g, String.fromCharCode('9'.charCodeAt(0) + 4));
-    cards = cards.replace(/Q/g, String.fromCharCode('9'.charCodeAt(0) + 3));
-    cards = cards.replace(/J/g, String.fromCharCode('9'.charCodeAt(0) + 2));
-    cards = cards.replace(/T/g, String.fromCharCode('9'.charCodeAt(0) + 1));
-
     switch (j(getSimilar(cards))) {
         case j([5]):
             return [7, cards];
